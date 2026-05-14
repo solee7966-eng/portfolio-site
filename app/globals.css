@@ -1,26 +1,59 @@
 @import "tailwindcss";
 
+/**
+ * Light SaaS-style theme: white / slate surfaces, indigo accent.
+ * No prefers-color-scheme dark block — single light palette only.
+ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f8fafc;
+  --foreground: #0f172a;
+  --muted: #64748b;
+  --border: #e2e8f0;
+  --surface: #ffffff;
+  --surface-muted: #f1f5f9;
+  --accent: #4f46e5;
+  --accent-foreground: #ffffff;
+  --accent-hover: #4338ca;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-hover: var(--accent-hover);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  /**
+   * Paint the full viewport on the root: avoids dark UA canvas showing through
+   * when the OS prefers dark mode but we ship a light-only site.
+   */
+  html {
+    height: 100%;
+    color-scheme: light;
+    /* Fallback then token — if var ever failed, first color still wins */
+    background-color: #f8fafc;
+    background-color: var(--background);
   }
-}
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  body {
+    min-height: 100%;
+    min-height: 100dvh;
+    background-color: #f8fafc;
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  }
+
+  main {
+    background-color: #f8fafc;
+    background-color: var(--background);
+  }
 }
