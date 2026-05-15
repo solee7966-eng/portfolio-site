@@ -1,0 +1,44 @@
+# Cursor Rules
+
+## Project Context
+- This is a developer portfolio site.
+- Tech stack: Next.js App Router, TypeScript, Tailwind CSS.
+- Preserve the current folder structure and component hierarchy.
+
+## Role
+- Cursor is responsible for implementation and code modification.
+- ChatGPT handles architecture, planning, review, and prompt design.
+- The user handles testing, GitHub, deployment, and final decisions.
+
+## Editing Rules
+- Make minimal and targeted changes.
+- Do not rewrite entire files unless explicitly requested.
+- Avoid unnecessary refactoring.
+- Preserve existing UI style and layout.
+- Reuse existing components before creating new ones.
+- Keep responsive design intact.
+
+## Code Style
+- Use strict TypeScript.
+- Avoid `any` unless there is a clear reason.
+- Prefer functional React components.
+- Use Tailwind CSS consistently.
+- Keep imports organized.
+- Avoid duplicate logic and duplicate components.
+
+## Next.js Rules
+- Use App Router conventions.
+- Prefer Server Components.
+- Use Client Components only when interactivity is required.
+- Use `next/image` for local images.
+- Use `next/link` for internal navigation.
+
+## Output Rules
+- Explain changes briefly.
+- Prefer showing changed sections or diffs instead of full files.
+- Do not include long explanations unless asked.
+- Do not modify unrelated files.
+
+## Validation
+- Keep `npm run lint` passing.
+- Keep `npm run build` passing.
