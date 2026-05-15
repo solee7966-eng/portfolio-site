@@ -19,11 +19,11 @@ export type SiteConfig = {
 };
 
 export const siteConfig: SiteConfig = {
-  name: "Developer",
-  title: "Developer Portfolio",
+  name: "안태훈",
+  title: "안태훈 | 신입 웹 개발자 포트폴리오",
   description:
-    "Next.js 기반 개발자 포트폴리오 — JobFinder, 쇼핑몰, MCP 멀티에이전트 협업 경험.",
-  url: "https://example.com",
+    "신입 웹 개발자 안태훈의 포트폴리오입니다. JobFinder에서 Spring Boot·Oracle·MyBatis 기반 기업 기능, 결제, 스케줄러, WebSocket 채팅 확장과 Docker·Jenkins·AWS EC2 배포를 경험했으며, 이 사이트는 Next.js로 제작하고 ChatGPT·Cursor 기반 MCP 협업 과정을 정리했습니다.",
+  url: "https://taehoon-portfolio.vercel.app",
   nav: [
     { href: "/", label: "Home" },
     { href: "/projects", label: "Projects" },
@@ -32,7 +32,7 @@ export const siteConfig: SiteConfig = {
     { href: "/contact", label: "Contact" },
   ],
   links: {
-    github: "https://github.com/yourusername",
-    email: "mailto:you@example.com",
+    github: "https://github.com/solee7966-eng",
+    email: "mailto:solee7966@naver.com",
   },
 };

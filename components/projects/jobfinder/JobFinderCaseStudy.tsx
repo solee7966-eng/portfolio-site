@@ -210,14 +210,15 @@ export function JobFinderCaseStudy() {
               채팅 기능을 통해 연결되는 채용 플랫폼입니다.
             </p>
             <p>
-              본 프로젝트에서 저는 기업 사용자 도메인을 중심으로 공고 관리,
-              지원자 관리, 제안서 발송, 인재 검색, 배너 등록, 포인트 결제
-              시스템을 담당했습니다.
+              <span className="block">본 프로젝트에서 저는 기업 사용자 도메인을 중심으로 공고 관리,
+              지원자 관리, 제안서 발송, 인재 검색, 배너 등록,</span>
+              <span className="block">포인트 결제 시스템을 담당했습니다.</span>
             </p>
             <p>
-              또한 프로젝트 후반에는 Monolithic 구조에서 MSA 구조로 전환하고,
-              Jenkins와 Docker 기반 CI/CD 파이프라인을 구성하며 실제 운영
-              환경에 가까운 배포 흐름을 경험했습니다.
+              <span className="block">또한 프로젝트 후반에는 Monolithic 구조에서 MSA 구조로 전환하고,
+              Jenkins와 Docker 기반 CI/CD 파이프라인을</span> 
+              <span className="block">구성하며 실제 운영 환경에 가까운 배포 흐름을 경험했습니다.</span>
+              
             </p>
             <p>
               팀 프로젝트 종료 후에는 기존 서비스에서 부족했던 기업-구직자 간
