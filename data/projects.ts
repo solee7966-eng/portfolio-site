@@ -17,10 +17,17 @@ export const projects: readonly Project[] = [
   {
     slug: "jobfinder",
     title: "JobFinder",
-    summary: "채용/구직 관련 웹 애플리케이션 (요약)",
+    summary: "Spring Boot 기반 MSA 채용 플랫폼",
     description:
-      "JobFinder 프로젝트 상세 페이지입니다. 문제 정의, 아키텍처, 기술 선택 이유 등을 이후 섹션으로 확장할 수 있습니다.",
-    techStack: ["Next.js", "TypeScript", "Tailwind CSS"],
+      "기업 공고·지원자·제안·PortOne 결제·스케줄러. MSA 전환, Jenkins/Docker, 개인 확장 실시간 채팅까지.",
+    techStack: [
+      "Spring Boot",
+      "Oracle",
+      "PortOne",
+      "WebSocket",
+      "Docker",
+      "Jenkins",
+    ],
     featured: true,
     href: "/projects/jobfinder",
   },

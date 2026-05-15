@@ -16,7 +16,7 @@ export function SectionTitle({
         {title}
       </h2>
       {subtitle ? (
-        <p className="max-w-2xl text-sm leading-relaxed text-muted md:text-base">
+        <p className="max-w-4xl text-sm leading-relaxed text-muted md:text-base">
           {subtitle}
         </p>
       ) : null}
