@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import Image from "next/image";
+
 import { DetailAccordionItem } from "@/components/ui/DetailAccordionItem";
 import { FeatureCard } from "@/components/ui/FeatureCard";
 import { FlowDiagram } from "@/components/ui/FlowDiagram";
@@ -72,31 +74,34 @@ const DB_DESIGN_CARDS: readonly { title: string; description: string }[] = [
   },
 ];
 
-const MAIN_FEATURES: readonly { title: string; description: string }[] = [
+const MAIN_FEATURES: readonly { title: string; description: string; image?: string; imageAlt?: string; }[] = [
   {
-    title: "기업 공고 관리",
+    title: "기업 공고 관리 및 상태 자동화",
     description:
-      "기업 사용자가 채용 공고를 등록, 수정, 관리할 수 있는 기능을 구현했습니다. 공고의 시작일, 마감일, 게시 종료일에 따라 상태가 자동으로 변경되도록 설계했습니다.",
+      "기업 사용자가 채용 공고를 등록, 수정, 관리할 수 있는 기능을 구현했습니다. 또한 공고의 시작일, 마감일, 게시 종료일을 기준으로 상태가 자동 변경되도록 설계해 만료되거나 종료된 공고가 사용자 화면에 계속 노출되지 않도록 처리했습니다.",
+    image: "/projects/jobfinder/job-management.png",
+    imageAlt: "JobFinder 채용 공고 관리 화면",
   },
   {
     title: "지원자 관리",
     description:
       "기업 담당자가 지원서를 열람하고 지원자의 진행 상태를 변경할 수 있는 기능을 구현했습니다. 단순 상태 변경이 아니라 현재 상태를 DB에서 재조회한 뒤 이전 상태와 비교하여 경쟁 상태로 인한 데이터 불일치를 방지했습니다.",
+    image: "/projects/jobfinder/applicant-management.png",
+    imageAlt: "JobFinder 지원자 관리 화면",
   },
   {
     title: "제안서 발송",
     description:
       "기업이 인재에게 제안서를 발송할 수 있는 기능을 구현했습니다. 소유권, 공고 상태, 만료일, 수신자 유효성, 중복 발송 여부를 서버에서 검증해 잘못된 요청을 차단했습니다.",
+    image: "/projects/jobfinder/offer-send.png",
+    imageAlt: "JobFinder 제안서 발송 화면",
   },
   {
     title: "포인트 결제 시스템",
     description:
       "PortOne 결제 연동을 통해 포인트 충전 기능을 구현했습니다. 외부 결제와 내부 포인트 적립 사이의 데이터 불일치를 막기 위해 PENDING, VERIFYING, PAID 상태 흐름과 주문번호 기반 재검증 구조를 적용했습니다.",
-  },
-  {
-    title: "공고 상태 자동 동기화",
-    description:
-      "Spring Scheduler를 사용해 공고와 배너 상태를 주기적으로 갱신했습니다. 마감일이나 게시 종료일이 지난 데이터가 사용자 화면에 계속 노출되지 않도록 자동화했습니다.",
+    image: "/projects/jobfinder/payment-page.png",
+    imageAlt: "JobFinder 포인트 결제 화면",
   },
   {
     title: "실시간 채팅 개인 확장",
@@ -145,6 +150,7 @@ const SONAR_IMPROVEMENTS = [
   "비대한 메서드를 역할별로 분리",
   "공통 로직 메서드 추출",
 ] as const;
+
 
 export function JobFinderCaseStudy() {
   return (
@@ -221,9 +227,9 @@ export function JobFinderCaseStudy() {
               
             </p>
             <p>
-              팀 프로젝트 종료 후에는 기존 서비스에서 부족했던 기업-구직자 간
-              소통 기능을 보완하기 위해 WebSocket + STOMP 기반 실시간 채팅
-              기능을 개인적으로 확장했습니다.
+              <span className="block">팀 프로젝트 종료 후 기존 서비스에서 부족했던 기업-구직자 간
+              소통 기능을 보완하기 위해 WebSocket + STOMP 기반</span> 
+              <span className="block">실시간 채팅 기능을 개인적으로 확장했습니다.</span>
             </p>
           </div>
           <div className="mt-12">
@@ -283,7 +289,7 @@ export function JobFinderCaseStudy() {
         <PageSection
           id="db-design"
           title="DB 설계"
-          subtitle="팀 본편에서 다룬 Oracle 스키마입니다. 개인 확장 채팅(TBL_CHAT_*)은 아래 「개인 확장」 섹션에서 정리합니다."
+          subtitle="팀 본편에서 다룬 Oracle 스키마입니다. 개인 확장 채팅(TBL_CHAT_*)은 아래 「개인 확장」 섹션에서 정리했습니다."
         >
           <div className="max-w-4xl space-y-4 text-sm leading-relaxed text-muted md:text-base">
             <p>
@@ -322,13 +328,33 @@ export function JobFinderCaseStudy() {
           title="주요 담당 기능"
           subtitle="기업 도메인과 확장 기능을 중심으로 구현한 범위입니다."
         >
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid gap-6">
             {MAIN_FEATURES.map((f) => (
-              <FeatureCard
+              <article
                 key={f.title}
-                title={f.title}
-                description={f.description}
-              />
+                className="overflow-hidden rounded-2xl border border-border bg-surface shadow-sm"
+              >
+                {f.image && (
+                  <div className="border-b border-border bg-white">
+                    <Image
+                      src={f.image}
+                      alt={f.imageAlt ?? f.title}
+                      width={1200}
+                      height={700}
+                      className="h-auto w-full"
+                    />
+                  </div>
+                )}
+
+                <div className="p-5">
+                  <h3 className="text-base font-semibold text-foreground">
+                    {f.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted">
+                    {f.description}
+                  </p>
+                </div>
+              </article>
             ))}
           </div>
         </PageSection>
@@ -338,7 +364,9 @@ export function JobFinderCaseStudy() {
           title="아키텍처"
           subtitle="요청 흐름과 MSA 전환 배경, 트레이드오프를 함께 정리했습니다."
         >
+          {/* 아래의 이미지로 대체 완료
           <FlowDiagram steps={FLOW_STEPS} />
+          */}
 
           <ProjectImage
             src="/projects/jobfinder/jobfinder-architecture.png"

@@ -36,8 +36,8 @@ export function ProjectImage({
           alt={alt}
           fill
           priority={priority}
-          sizes="(min-width: 1024px) 960px, 100vw"
-          className={`object-contain p-2 ${imageClassName}`}
+          sizes="(min-width: 1024px) 1200px, 100vw"
+          className={`object-contain p-1 ${imageClassName}`}
         />
       </div>
 
