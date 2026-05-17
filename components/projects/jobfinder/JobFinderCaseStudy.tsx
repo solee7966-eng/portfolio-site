@@ -104,9 +104,11 @@ const MAIN_FEATURES: readonly { title: string; description: string; image?: stri
     imageAlt: "JobFinder 포인트 결제 화면",
   },
   {
-    title: "실시간 채팅 개인 확장",
+    title: "인재 검색",
     description:
-      "팀 프로젝트 종료 후 WebSocket, STOMP, SockJS를 활용해 기업과 구직자 간 1:1 채팅 기능을 개인적으로 확장했습니다. 메시지 송수신, 읽음 처리, 안 읽은 메시지 수, 커서 기반 페이징을 구현했습니다.",
+      "기업 사용자가 등록된 구직자 이력서를 검색하고 필터링할 수 있도록 구현했습니다. 직무 분야, 기술 스택, 경력, 학력 조건을 기준으로 후보자를 조회하고, 프로필 보유 여부와 희망 조건을 함께 확인할 수 있도록 구성했습니다.",
+    image: "/projects/jobfinder/talent-page.png",
+    imageAlt: "JobFinder 기업 인재 검색 화면",
   },
 ];
 
@@ -150,6 +152,24 @@ const SONAR_IMPROVEMENTS = [
   "비대한 메서드를 역할별로 분리",
   "공통 로직 메서드 추출",
 ] as const;
+
+const PROBLEM_CARDS: readonly { title: string; description: string }[] = [
+  {
+    title: "역할별 사용자 흐름 분리",
+    description:
+      "기업 사용자는 공고 등록, 지원자 관리, 유료 기능 사용이 필요했고, 구직자는 공고 탐색, 지원, 이력서 관리, 채팅 흐름이 필요했습니다. 서로 다른 사용자 흐름이 섞이면 권한 처리와 화면 흐름이 복잡해질 수 있었습니다.",
+  },
+  {
+    title: "기능 간 데이터 연결",
+    description:
+      "채용 공고, 지원 내역, 결제, 스케줄러, 채팅은 각각 독립 기능처럼 보이지만 실제 서비스에서는 하나의 채용 흐름으로 연결됩니다. 기능별 데이터가 끊기지 않도록 설계하는 것이 중요했습니다.",
+  },
+  {
+    title: "운영 환경까지 고려한 안정성",
+    description:
+      "단순 로컬 실행이 아니라 AWS, Docker, Jenkins, Nginx 기반으로 배포했습니다. 운영 환경에서 반복적으로 빌드·배포되고 접근될 수 있는 구조가 필요했습니다.",
+  },
+];
 
 
 export function JobFinderCaseStudy() {
@@ -283,6 +303,22 @@ export function JobFinderCaseStudy() {
                 ]}
               />
             </div>
+          </div>
+        </PageSection>
+
+        <PageSection
+          id="problem"
+          title="문제 정의"
+          subtitle="기업과 구직자의 서로 다른 흐름을 하나의 서비스 안에서 어떻게 연결할 것인가?"
+        >
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {PROBLEM_CARDS.map((card) => (
+              <FeatureCard
+                key={card.title}
+                title={card.title}
+                description={card.description}
+              />
+            ))}
           </div>
         </PageSection>
 
@@ -459,6 +495,8 @@ export function JobFinderCaseStudy() {
           </div>
         </PageSection>
 
+
+        {/* 채팅 기능 개인 확장 */}
         <PageSection
           id="chat-extension"
           title="개인 확장: WebSocket 기반 실시간 채팅"
@@ -473,42 +511,174 @@ export function JobFinderCaseStudy() {
               개인적으로 확장한 채팅 도메인에 대한 설명입니다.
             </p>
           </div>
+
           <div className="max-w-4xl space-y-4 text-sm leading-relaxed text-muted md:text-base">
             <p>
               팀 프로젝트 종료 후 기존 JobFinder 서비스에 기업과 구직자 간 직접
-              소통 수단이 부족하다는 점을 발견했습니다. 지원 이후 합격/불합격
-              처리까지의 과정에서 양측이 대화할 수 있는 채널이 필요하다고
-              판단하여, 기존 코드베이스와 MSA 구조를 분석한 뒤 채팅 기능을
-              개인적으로 설계하고 구현했습니다.
+              소통 수단이 부족하다는 점을 발견했습니다. 지원 이후 면접 일정 조율,
+              문의, 합격 안내까지 이어지는 흐름을 보완하기 위해 기존 코드베이스와
+              MSA 구조를 분석한 뒤 채팅 기능을 개인적으로 설계하고 구현했습니다.
             </p>
           </div>
-          <h4 className="mt-8 text-sm font-semibold text-foreground">
-            기술 선택
-          </h4>
-          <ul className="mt-3 list-inside list-disc space-y-2 text-sm text-muted md:text-base">
-            <li>
-              <strong className="text-foreground/90">WebSocket:</strong> 서버가
-              클라이언트에 실시간으로 메시지를 전달하기 위해 사용
-            </li>
-            <li>
-              <strong className="text-foreground/90">STOMP:</strong> 메시지
-              발행/구독 구조를 명확히 하기 위해 사용
-            </li>
-            <li>
-              <strong className="text-foreground/90">SockJS:</strong> WebSocket
-              미지원 환경에 대한 fallback을 위해 사용
-            </li>
-            <li>
-              <strong className="text-foreground/90">In-Memory Broker:</strong>{" "}
-              단일 서버 환경에서 오버엔지니어링을 피하기 위해 선택
-            </li>
-            <li>
-              <strong className="text-foreground/90">REST + WebSocket 혼합:</strong>{" "}
-              채팅방 생성, 메시지 조회, 읽음 처리는 REST로 처리하고 실시간
-              송수신과 읽음 이벤트 전파는 WebSocket으로 처리
-            </li>
-          </ul>
-          <h4 className="mt-8 text-sm font-semibold text-foreground">
+
+          <div className="mt-10 space-y-10">
+            <article className="rounded-2xl border border-border bg-card p-3 shadow-sm sm:p-4">
+              <div className="grid gap-5 lg:grid-cols-2">
+                <figure className="space-y-3">
+                  <Image
+                    src="/projects/jobfinder/chat-list-jobseeker.png"
+                    alt="JobFinder 구직자 기준 채팅방 목록 화면"
+                    width={1800}
+                    height={1200}
+                    className="w-full rounded-xl border border-border object-contain"
+                  />
+                  <figcaption className="text-center text-sm font-medium text-muted">
+                    구직자 화면
+                  </figcaption>
+                </figure>
+
+                <figure className="space-y-3">
+                  <Image
+                    src="/projects/jobfinder/chat-list-company.png"
+                    alt="JobFinder 기업 기준 채팅방 목록 화면"
+                    width={1800}
+                    height={1200}
+                    className="w-full rounded-xl border border-border object-contain"
+                  />
+                  <figcaption className="text-center text-sm font-medium text-muted">
+                    기업 화면
+                  </figcaption>
+                </figure>
+              </div>
+
+              <div className="mt-6 space-y-2 px-1">
+                <h4 className="text-base font-semibold text-foreground">
+                  채팅방 목록
+                </h4>
+
+                <p className="text-sm leading-relaxed text-muted md:text-base">
+                  구직자와 기업은 지원 관계를 기준으로 생성된 1:1 채팅방 목록을
+                  확인할 수 있습니다. 각 목록에는 상대방 정보, 관련 공고, 마지막
+                  메시지, 최근 메시지 시간, 안 읽은 메시지 수를 표시해 대화 상태를
+                  빠르게 파악할 수 있도록 구성했습니다.
+                </p>
+              </div>
+            </article>
+
+            <article className="rounded-2xl border border-border bg-card p-3 shadow-sm sm:p-4">
+              <div className="grid gap-5 lg:grid-cols-2">
+                <figure className="space-y-3">
+                  <Image
+                    src="/projects/jobfinder/chat-room-jobseeker.png"
+                    alt="JobFinder 구직자 기준 실시간 채팅방 화면"
+                    width={1800}
+                    height={1200}
+                    className="w-full rounded-xl border border-border object-contain"
+                  />
+                  <figcaption className="text-center text-sm font-medium text-muted">
+                    구직자 화면
+                  </figcaption>
+                </figure>
+
+                <figure className="space-y-3">
+                  <Image
+                    src="/projects/jobfinder/chat-room-company.png"
+                    alt="JobFinder 기업 기준 실시간 채팅방 화면"
+                    width={1800}
+                    height={1200}
+                    className="w-full rounded-xl border border-border object-contain"
+                  />
+                  <figcaption className="text-center text-sm font-medium text-muted">
+                    기업 화면
+                  </figcaption>
+                </figure>
+              </div>
+
+              <div className="mt-6 space-y-2 px-1">
+                <h4 className="text-base font-semibold text-foreground">
+                  채팅방 상세
+                </h4>
+
+                <p className="text-sm leading-relaxed text-muted md:text-base">
+                  채팅방 내부에서는 WebSocket 연결 상태, 날짜 구분, 메시지 송수신,
+                  읽음 표시, 전송 시간, 입력창을 제공했습니다. 메시지는 STOMP를 통해
+                  실시간으로 전달하고, 읽음 이벤트를 별도로 전파해 상대방이 메시지를
+                  확인했는지 화면에서 바로 확인할 수 있도록 구현했습니다.
+                </p>
+              </div>
+            </article>
+          </div>
+
+          <div className="mt-10">
+            <h4 className="text-base font-semibold text-foreground">
+              기술 선택
+            </h4>
+
+            <div className="mt-4 grid gap-4 md:grid-cols-2">
+              <article className="rounded-2xl border border-border bg-card p-5 shadow-sm">
+                <h5 className="text-sm font-semibold text-foreground">
+                  WebSocket
+                </h5>
+                <p className="mt-2 text-sm leading-relaxed text-muted">
+                  서버와 클라이언트가 지속 연결을 유지하면서 양방향으로 메시지를
+                  주고받을 수 있도록 사용했습니다.
+                </p>
+              </article>
+
+              <article className="rounded-2xl border border-border bg-card p-5 shadow-sm">
+                <h5 className="text-sm font-semibold text-foreground">
+                  STOMP
+                </h5>
+                <p className="mt-2 text-sm leading-relaxed text-muted">
+                  메시지 발행과 구독 경로를 명확히 분리하기 위해 사용했습니다.
+                  <code className="mx-1 rounded bg-surface px-1 py-0.5 text-xs">
+                    /app/chat/send
+                  </code>
+                  로 메시지를 전송하고,
+                  <code className="mx-1 rounded bg-surface px-1 py-0.5 text-xs">
+                    /topic/chat/room/{"{roomId}"}
+                  </code>
+                  를 구독하는 구조입니다.
+                </p>
+              </article>
+
+              <article className="rounded-2xl border border-border bg-card p-5 shadow-sm">
+                <h5 className="text-sm font-semibold text-foreground">
+                  SockJS
+                </h5>
+                <p className="mt-2 text-sm leading-relaxed text-muted">
+                  WebSocket을 지원하지 않는 일부 환경에서도 연결을 시도할 수 있도록
+                  fallback 처리를 위해 함께 적용했습니다.
+                </p>
+              </article>
+
+              <article className="rounded-2xl border border-border bg-card p-5 shadow-sm">
+                <h5 className="text-sm font-semibold text-foreground">
+                  In-Memory Simple Broker
+                </h5>
+                <p className="mt-2 text-sm leading-relaxed text-muted">
+                  현재 단일 서버 운영 환경에서는 Spring 내장 Simple Broker로 구독
+                  정보를 관리했습니다. 다중 서버로 확장할 경우 Redis Pub/Sub 또는
+                  RabbitMQ 같은 외부 메시지 브로커 전환이 필요하다는 점도 함께
+                  고려했습니다.
+                </p>
+              </article>
+
+              <article className="rounded-2xl border border-border bg-card p-5 shadow-sm md:col-span-2">
+                <h5 className="text-sm font-semibold text-foreground">
+                  REST API + WebSocket 분리
+                </h5>
+                <p className="mt-2 text-sm leading-relaxed text-muted">
+                  채팅방 생성, 목록 조회, 메시지 조회, 읽음 처리는 REST API로
+                  처리하고, 실시간 메시지 송수신과 읽음 이벤트 전파는 WebSocket으로
+                  분리했습니다. 실시간성이 필요한 기능과 조회성 기능을 나누어 구조의
+                  복잡도를 낮췄습니다.
+                </p>
+              </article>
+            </div>
+          </div>
+
+          <h4 className="mt-10 text-base font-semibold text-foreground">
             채팅 DB 설계
           </h4>
 
@@ -520,40 +690,66 @@ export function JobFinderCaseStudy() {
             aspectRatio="auto"
           />
 
-          <ul className="mt-6 list-inside list-disc space-y-2 text-sm text-muted md:text-base">
-            <li>
-              <strong className="text-foreground/90">TBL_CHAT_ROOM:</strong> 지원
-              관계 기반 1:1 채팅방
-            </li>
-            <li>
-              <strong className="text-foreground/90">TBL_CHAT_MESSAGE:</strong>{" "}
-              append-only 메시지 저장
-            </li>
-            <li>
-              <strong className="text-foreground/90">TBL_CHAT_READ:</strong> 사용자별
-              마지막 읽음 메시지 ID 저장
-            </li>
-          </ul>
-          <h4 className="mt-8 text-sm font-semibold text-foreground">
+          <div className="mt-6 grid gap-4 md:grid-cols-3">
+            <article className="rounded-2xl border border-border bg-card p-5 shadow-sm">
+              <h5 className="text-sm font-semibold text-foreground">
+                TBL_CHAT_ROOM
+              </h5>
+              <p className="mt-2 text-sm leading-relaxed text-muted">
+                지원 관계 또는 제안 관계를 기준으로 기업과 구직자를 1:1로 연결하는
+                채팅방 테이블입니다.
+              </p>
+            </article>
+
+            <article className="rounded-2xl border border-border bg-card p-5 shadow-sm">
+              <h5 className="text-sm font-semibold text-foreground">
+                TBL_CHAT_MESSAGE
+              </h5>
+              <p className="mt-2 text-sm leading-relaxed text-muted">
+                메시지를 append-only 방식으로 저장하고, 삭제 여부는 플래그로 관리해
+                이력을 보존합니다.
+              </p>
+            </article>
+
+            <article className="rounded-2xl border border-border bg-card p-5 shadow-sm">
+              <h5 className="text-sm font-semibold text-foreground">
+                TBL_CHAT_READ
+              </h5>
+              <p className="mt-2 text-sm leading-relaxed text-muted">
+                사용자별 마지막 읽은 메시지 ID를 저장해 읽음 표시와 안 읽은 메시지
+                수 계산에 활용합니다.
+              </p>
+            </article>
+          </div>
+
+          <h4 className="mt-10 text-base font-semibold text-foreground">
             핵심 기능
           </h4>
-          <ul className="mt-3 list-inside list-disc space-y-2 text-sm text-muted md:text-base">
-            <li>지원 관계 기반 채팅방 생성</li>
-            <li>동일 지원 건에 대한 중복 채팅방 생성 방지</li>
-            <li>STOMP 기반 실시간 메시지 송수신</li>
-            <li>채팅방 목록 마지막 메시지 실시간 갱신</li>
-            <li>lastReadMessageId 기반 읽음 처리</li>
-            <li>안 읽은 메시지 수 계산</li>
-            <li>
-              message_id &lt; lastMessageId 조건의 커서 기반 메시지 페이징
-            </li>
-            <li>기존 Spring Security + JWT 인증 체계와 연동</li>
-            <li>
-              @MessageMapping 핸들러에서 Principal 기반 로그인 사용자 식별
-            </li>
-          </ul>
+
+          <div className="mt-4 grid gap-3 md:grid-cols-2">
+            {[
+              "지원 관계 기반 채팅방 생성",
+              "동일 지원 건에 대한 중복 채팅방 생성 방지",
+              "STOMP 기반 실시간 메시지 송수신",
+              "채팅방 목록 마지막 메시지 실시간 갱신",
+              "lastReadMessageId 기반 읽음 처리",
+              "안 읽은 메시지 수 계산",
+              "message_id < lastMessageId 조건의 커서 기반 메시지 페이징",
+              "기존 Spring Security + JWT 인증 체계와 연동",
+              "@MessageMapping 핸들러에서 Principal 기반 사용자 식별",
+            ].map((item) => (
+              <div
+                key={item}
+                className="rounded-xl border border-border bg-card px-4 py-3 text-sm text-muted shadow-sm"
+              >
+                {item}
+              </div>
+            ))}
+          </div>
         </PageSection>
 
+
+        {/* Docker와 Jenkins 기반 배포 파이프라인 */}
         <PageSection
           id="cicd"
           title="Docker와 Jenkins 기반 배포 파이프라인"
