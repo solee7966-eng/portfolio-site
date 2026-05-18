@@ -63,6 +63,14 @@ export const metadata: Metadata = {
     siteName,
     title: defaultTitle,
     description,
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "안태훈 포트폴리오",
+      },
+    ],
   },
   twitter: {
     card: "summary",
