@@ -4,7 +4,7 @@ import Image from "next/image";
 
 import { DetailAccordionItem } from "@/components/ui/DetailAccordionItem";
 import { FeatureCard } from "@/components/ui/FeatureCard";
-import { FlowDiagram } from "@/components/ui/FlowDiagram";
+//import { FlowDiagram } from "@/components/ui/FlowDiagram";
 import { MetaInfoGrid } from "@/components/ui/MetaInfoGrid";
 import { PageSection } from "@/components/ui/PageSection";
 import { ProjectImage } from "@/components/ui/ProjectImage";
@@ -36,6 +36,7 @@ const META_ROWS = [
   { label: "배포", value: "운영 배포 경험 있음" },
 ] as const;
 
+{/*
 const FLOW_STEPS = [
   "Client",
   "Nginx",
@@ -44,6 +45,7 @@ const FLOW_STEPS = [
   "User Service / Board Service",
   "Oracle DB",
 ] as const;
+*/}
 
 /** 팀 본편 Oracle 스키마 설계 관점(채팅 확장 TBL_CHAT_* 와 구분) */
 const DB_DESIGN_CARDS: readonly { title: string; description: string }[] = [
@@ -124,23 +126,10 @@ const CI_CD_POINTS = [
   "SonarQube 기반 코드 품질 점검",
 ] as const;
 
-const ROLE_ITEMS = [
+const CORE_ROLE_ITEMS = [
   "기업 도메인 기능 설계 및 구현",
-  "공고 관리 기능 구현",
-  "지원자 관리 및 상태 변경 로직 구현",
-  "제안서 발송 및 수신자 검증 로직 구현",
-  "인재 검색 기능 구현",
-  "배너 등록 및 상태 관리 구현",
   "PortOne 기반 포인트 결제 시스템 구현",
-  "결제 상태 검증 및 중복 적립 방지 처리",
-  "Spring Scheduler 기반 공고/배너 상태 자동 동기화",
-  "MSA 전환 및 서비스 구조 이해",
-  "Jenkins, Docker 기반 CI/CD 파이프라인 구성 경험",
-  "AWS EC2 운영 환경 배포 경험",
   "WebSocket + STOMP 채팅 기능 개인 확장",
-  "Oracle DB 테이블 설계 및 MyBatis Mapper 작성",
-  "Swagger 기반 API 문서 관리",
-  "SonarQube 기반 코드 품질 개선",
 ] as const;
 
 const SONAR_IMPROVEMENTS = [
@@ -175,26 +164,37 @@ const PROBLEM_CARDS: readonly { title: string; description: string }[] = [
 export function JobFinderCaseStudy() {
   return (
     <div>
-      <header className="border-b border-border pb-10 sm:pb-12">
+      <header className="border-b border-border pb-12 sm:pb-14">
         <p className="text-sm font-medium uppercase tracking-widest text-accent">
           Spring Boot 기반 MSA 채용 플랫폼
         </p>
         <h1 className="mt-3 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl md:text-5xl">
           JobFinder
         </h1>
-        <p className="mt-6 max-w-4xl text-base leading-relaxed text-muted md:text-lg">
+        <p className="mt-6 max-w-3xl text-base leading-relaxed text-muted md:text-lg">
           구직자와 기업 사용자를 연결하는 채용 플랫폼입니다. 기업 사용자의 공고
           관리, 지원자 관리, 제안서 발송, 포인트 결제 기능을 중심으로
           구현했으며, 팀 프로젝트 종료 후 WebSocket 기반 실시간 채팅 기능을
           개인적으로 확장했습니다. 단순 기능 구현을 넘어 MSA 전환, CI/CD,
           Docker 배포, 운영 DB 관리까지 경험한 프로젝트입니다.
         </p>
-        <div className="mt-6 flex flex-wrap gap-2">
+        <div className="mt-6 flex flex-wrap gap-2.5">
           {HERO_TAGS.map((tag) => (
             <TechBadge key={tag} label={tag} />
           ))}
         </div>
         <MetaInfoGrid rows={META_ROWS} />
+
+        <div className="mt-7 grid gap-4 sm:grid-cols-3">
+          {CORE_ROLE_ITEMS.map((item) => (
+            <div
+              key={item}
+              className="rounded-lg border border-accent/15 bg-accent/4 p-4 text-sm font-medium leading-relaxed text-foreground/90 shadow-sm sm:p-5"
+            >
+              {item}
+            </div>
+          ))}
+        </div>
 
         <div className="mt-8 flex flex-wrap gap-3">
           <Link
@@ -220,7 +220,7 @@ export function JobFinderCaseStudy() {
           alt="JobFinder 메인 화면"
           caption="JobFinder 메인 화면"
           priority
-          className="mt-10"
+          className="mt-12"
         />
       </header>
 
@@ -259,7 +259,7 @@ export function JobFinderCaseStudy() {
             <p className="mt-1 text-sm text-muted">
               실제 코드·배포에 사용한 기술입니다.
             </p>
-            <div className="mt-6 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-7 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
               <TechStackBlock
                 heading="Frontend"
                 items={["Thymeleaf", "HTML5", "CSS3", "JavaScript"]}
@@ -311,7 +311,7 @@ export function JobFinderCaseStudy() {
           title="문제 정의"
           subtitle="기업과 구직자의 서로 다른 흐름을 하나의 서비스 안에서 어떻게 연결할 것인가?"
         >
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {PROBLEM_CARDS.map((card) => (
               <FeatureCard
                 key={card.title}
@@ -344,11 +344,11 @@ export function JobFinderCaseStudy() {
             src="/projects/jobfinder/jobfinder-erd.png"
             alt="JobFinder 본편 ERD"
             caption="JobFinder 본편 Oracle DB ERD"
-            className="mt-8"
+            className="mt-10"
             aspectRatio="auto"
           />
 
-          <div className="mt-8 grid gap-4 sm:grid-cols-2">
+          <div className="mt-10 grid gap-5 sm:grid-cols-2">
             {DB_DESIGN_CARDS.map((card) => (
               <FeatureCard
                 key={card.title}
@@ -364,7 +364,7 @@ export function JobFinderCaseStudy() {
           title="주요 담당 기능"
           subtitle="기업 도메인과 확장 기능을 중심으로 구현한 범위입니다."
         >
-          <div className="grid gap-6">
+          <div className="grid gap-8">
             {MAIN_FEATURES.map((f) => (
               <article
                 key={f.title}
@@ -382,7 +382,7 @@ export function JobFinderCaseStudy() {
                   </div>
                 )}
 
-                <div className="p-5">
+                <div className="p-5 sm:p-6">
                   <h3 className="text-base font-semibold text-foreground">
                     {f.title}
                   </h3>
@@ -408,11 +408,11 @@ export function JobFinderCaseStudy() {
             src="/projects/jobfinder/jobfinder-architecture.png"
             alt="JobFinder MSA 시스템 아키텍처"
             caption="Nginx, Gateway, Eureka, 서비스, Oracle DB로 이어지는 MSA 구조"
-            className="mt-8"
+            className="mt-10"
             aspectRatio="auto"
           />
 
-          <div className="mt-8 max-w-4xl space-y-4 text-sm leading-relaxed text-muted md:text-base">
+          <div className="mt-10 max-w-4xl space-y-4 text-sm leading-relaxed text-muted md:text-base">
             <p>
               초기에는 단일 Spring Boot 애플리케이션으로 개발을 시작했지만,
               구직자 서비스와 기업 서비스가 독립적인 도메인을 가지고 있고 향후
@@ -438,7 +438,7 @@ export function JobFinderCaseStudy() {
           title="핵심 구현 상세"
           subtitle="동시성·검증·결제 일관성·스케줄링에 집중한 구현입니다. 긴 설명은 아코디언으로 접어 두었습니다."
         >
-          <div className="space-y-3">
+          <div className="space-y-4">
             <DetailAccordionItem title="동시성 문제를 고려한 지원자 상태 변경">
               <p>
                 지원자 상태 변경 시 화면에서 전달된 상태값만 신뢰하지 않고, DB에서
@@ -502,7 +502,7 @@ export function JobFinderCaseStudy() {
           title="개인 확장: WebSocket 기반 실시간 채팅"
           subtitle="팀 프로젝트 종료 이후(2026.04) 단독으로 설계·구현한 기능입니다."
         >
-          <div className="mb-8 rounded-lg border border-accent/25 bg-surface p-4 text-sm shadow-sm sm:p-5">
+          <div className="mb-10 rounded-lg border border-accent/15 bg-accent/3 p-5 text-sm shadow-sm sm:p-6">
             <p className="font-semibold text-foreground">
               팀 본편(2026.02.24 ~ 2026.03.31) 이후 · 개인 확장(2026.04)
             </p>
@@ -521,9 +521,9 @@ export function JobFinderCaseStudy() {
             </p>
           </div>
 
-          <div className="mt-10 space-y-10">
-            <article className="rounded-2xl border border-border bg-card p-3 shadow-sm sm:p-4">
-              <div className="grid gap-5 lg:grid-cols-2">
+          <div className="mt-12 space-y-12">
+            <article className="rounded-2xl border border-border bg-card p-4 shadow-sm sm:p-5">
+              <div className="grid gap-6 lg:grid-cols-2">
                 <figure className="space-y-3">
                   <Image
                     src="/projects/jobfinder/chat-list-jobseeker.png"
@@ -551,7 +551,7 @@ export function JobFinderCaseStudy() {
                 </figure>
               </div>
 
-              <div className="mt-6 space-y-2 px-1">
+              <div className="mt-7 space-y-2 px-1">
                 <h4 className="text-base font-semibold text-foreground">
                   채팅방 목록
                 </h4>
@@ -565,8 +565,8 @@ export function JobFinderCaseStudy() {
               </div>
             </article>
 
-            <article className="rounded-2xl border border-border bg-card p-3 shadow-sm sm:p-4">
-              <div className="grid gap-5 lg:grid-cols-2">
+            <article className="rounded-2xl border border-border bg-card p-4 shadow-sm sm:p-5">
+              <div className="grid gap-6 lg:grid-cols-2">
                 <figure className="space-y-3">
                   <Image
                     src="/projects/jobfinder/chat-room-jobseeker.png"
@@ -594,7 +594,7 @@ export function JobFinderCaseStudy() {
                 </figure>
               </div>
 
-              <div className="mt-6 space-y-2 px-1">
+              <div className="mt-7 space-y-2 px-1">
                 <h4 className="text-base font-semibold text-foreground">
                   채팅방 상세
                 </h4>
@@ -609,13 +609,13 @@ export function JobFinderCaseStudy() {
             </article>
           </div>
 
-          <div className="mt-10">
+          <div className="mt-12">
             <h4 className="text-base font-semibold text-foreground">
               기술 선택
             </h4>
 
-            <div className="mt-4 grid gap-4 md:grid-cols-2">
-              <article className="rounded-2xl border border-border bg-card p-5 shadow-sm">
+            <div className="mt-5 grid gap-5 md:grid-cols-2">
+              <article className="rounded-2xl border border-border bg-card p-5 shadow-sm sm:p-6">
                 <h5 className="text-sm font-semibold text-foreground">
                   WebSocket
                 </h5>
@@ -625,7 +625,7 @@ export function JobFinderCaseStudy() {
                 </p>
               </article>
 
-              <article className="rounded-2xl border border-border bg-card p-5 shadow-sm">
+              <article className="rounded-2xl border border-border bg-card p-5 shadow-sm sm:p-6">
                 <h5 className="text-sm font-semibold text-foreground">
                   STOMP
                 </h5>
@@ -642,7 +642,7 @@ export function JobFinderCaseStudy() {
                 </p>
               </article>
 
-              <article className="rounded-2xl border border-border bg-card p-5 shadow-sm">
+              <article className="rounded-2xl border border-border bg-card p-5 shadow-sm sm:p-6">
                 <h5 className="text-sm font-semibold text-foreground">
                   SockJS
                 </h5>
@@ -652,7 +652,7 @@ export function JobFinderCaseStudy() {
                 </p>
               </article>
 
-              <article className="rounded-2xl border border-border bg-card p-5 shadow-sm">
+              <article className="rounded-2xl border border-border bg-card p-5 shadow-sm sm:p-6">
                 <h5 className="text-sm font-semibold text-foreground">
                   In-Memory Simple Broker
                 </h5>
@@ -664,7 +664,7 @@ export function JobFinderCaseStudy() {
                 </p>
               </article>
 
-              <article className="rounded-2xl border border-border bg-card p-5 shadow-sm md:col-span-2">
+              <article className="rounded-2xl border border-border bg-card p-5 shadow-sm sm:p-6 md:col-span-2">
                 <h5 className="text-sm font-semibold text-foreground">
                   REST API + WebSocket 분리
                 </h5>
@@ -678,7 +678,7 @@ export function JobFinderCaseStudy() {
             </div>
           </div>
 
-          <h4 className="mt-10 text-base font-semibold text-foreground">
+          <h4 className="mt-12 text-base font-semibold text-foreground">
             채팅 DB 설계
           </h4>
 
@@ -686,12 +686,12 @@ export function JobFinderCaseStudy() {
             src="/projects/jobfinder/jobfinder-chat-db.png"
             alt="WebSocket 채팅 확장 DB 구조"
             caption="개인 확장으로 설계한 WebSocket 채팅 도메인 DB 구조"
-            className="mt-4"
+            className="mt-5"
             aspectRatio="auto"
           />
 
-          <div className="mt-6 grid gap-4 md:grid-cols-3">
-            <article className="rounded-2xl border border-border bg-card p-5 shadow-sm">
+          <div className="mt-7 grid gap-5 md:grid-cols-3">
+            <article className="rounded-2xl border border-border bg-card p-5 shadow-sm sm:p-6">
               <h5 className="text-sm font-semibold text-foreground">
                 TBL_CHAT_ROOM
               </h5>
@@ -701,7 +701,7 @@ export function JobFinderCaseStudy() {
               </p>
             </article>
 
-            <article className="rounded-2xl border border-border bg-card p-5 shadow-sm">
+            <article className="rounded-2xl border border-border bg-card p-5 shadow-sm sm:p-6">
               <h5 className="text-sm font-semibold text-foreground">
                 TBL_CHAT_MESSAGE
               </h5>
@@ -711,7 +711,7 @@ export function JobFinderCaseStudy() {
               </p>
             </article>
 
-            <article className="rounded-2xl border border-border bg-card p-5 shadow-sm">
+            <article className="rounded-2xl border border-border bg-card p-5 shadow-sm sm:p-6">
               <h5 className="text-sm font-semibold text-foreground">
                 TBL_CHAT_READ
               </h5>
@@ -722,11 +722,11 @@ export function JobFinderCaseStudy() {
             </article>
           </div>
 
-          <h4 className="mt-10 text-base font-semibold text-foreground">
+          <h4 className="mt-12 text-base font-semibold text-foreground">
             핵심 기능
           </h4>
 
-          <div className="mt-4 grid gap-3 md:grid-cols-2">
+          <div className="mt-5 grid gap-4 md:grid-cols-2">
             {[
               "지원 관계 기반 채팅방 생성",
               "동일 지원 건에 대한 중복 채팅방 생성 방지",
@@ -740,7 +740,7 @@ export function JobFinderCaseStudy() {
             ].map((item) => (
               <div
                 key={item}
-                className="rounded-xl border border-border bg-card px-4 py-3 text-sm text-muted shadow-sm"
+                className="rounded-xl border border-border bg-card px-4 py-3.5 text-sm leading-relaxed text-muted shadow-sm"
               >
                 {item}
               </div>
@@ -772,11 +772,11 @@ export function JobFinderCaseStudy() {
             src="/projects/jobfinder/jobfinder-pipeline.png"
             alt="GitHub Jenkins Docker Hub EC2 배포 파이프라인"
             caption="GitHub, Jenkins, Docker Hub, AWS EC2로 이어지는 CI/CD 배포 파이프라인"
-            className="mt-8"
+            className="mt-10"
             aspectRatio="auto"
           />
 
-          <ul className="mt-8 list-inside list-disc space-y-2 text-sm text-muted md:text-base">
+          <ul className="mt-10 list-inside list-disc space-y-2.5 text-sm leading-relaxed text-muted md:text-base">
             {CI_CD_POINTS.map((point) => (
               <li key={point}>{point}</li>
             ))}
@@ -788,7 +788,7 @@ export function JobFinderCaseStudy() {
           title="트러블슈팅"
           subtitle="운영·배포·채팅 확장 과정에서 겪은 대표 이슈입니다."
         >
-          <div className="space-y-8">
+          <div className="space-y-9">
             <TroubleshootBlock
               title="외부 결제 성공 이후 내부 포인트 반영 실패"
               problem="PortOne 결제는 정상 완료되었지만 서버 내부 예외로 인해 DB 포인트 적립이 실패하는 문제가 발생했습니다. 사용자는 결제를 완료했지만 서비스 내부에는 포인트가 반영되지 않는 데이터 불일치 상황이었습니다."
@@ -803,6 +803,7 @@ export function JobFinderCaseStudy() {
               solution="docker-compose로 공통 네트워크를 구성하고 모든 서비스 컨테이너를 동일 네트워크에 배치했습니다. 서비스 간 통신 주소도 컨테이너 호스트명을 기준으로 변경해 Eureka 등록과 API 호출을 정상화했습니다."
               learning="MSA 환경에서는 애플리케이션 코드뿐 아니라 컨테이너 네트워크, 서비스 디스커버리, 실행 순서까지 함께 고려해야 한다는 점을 배웠습니다."
             />
+            {/* 다룬 운영 배포와 테스트 배포가 섞이는 파이프라인 문제(과함)
             <TroubleshootBlock
               title="운영 배포와 테스트 배포가 섞이는 파이프라인 문제"
               problem="초기에는 단일 Jenkins 파이프라인으로 모든 브랜치를 처리해 개발 중인 코드가 운영 배포에 영향을 줄 수 있는 위험이 있었습니다."
@@ -810,6 +811,8 @@ export function JobFinderCaseStudy() {
               solution="main 브랜치는 운영 배포용 파이프라인으로, 개인 브랜치는 테스트 배포용 파이프라인으로 분리했습니다. Jenkinsfile도 별도로 관리해 개발과 운영 환경이 독립적으로 동작하도록 구성했습니다."
               learning="형상관리는 코드 버전 관리뿐 아니라 배포 흐름과 운영 안정성까지 포함하는 관리 영역이라는 점을 이해했습니다."
             />
+            */}
+            
             <TroubleshootBlock
               title="채팅 메시지 읽음 상태 관리"
               problem="실시간 채팅에서 단순 메시지 송수신뿐 아니라 상대방이 어디까지 읽었는지를 표시해야 했습니다."
@@ -832,13 +835,13 @@ export function JobFinderCaseStudy() {
           <h4 className="mt-8 text-sm font-semibold text-foreground">
             개선 항목
           </h4>
-          <ul className="mt-3 max-w-4xl list-inside list-disc space-y-2 text-sm text-muted md:text-base">
+          <ul className="mt-4 max-w-4xl list-inside list-disc space-y-2.5 text-sm leading-relaxed text-muted md:text-base">
             {SONAR_IMPROVEMENTS.map((item) => (
               <li key={item}>{item}</li>
             ))}
           </ul>
 
-          <div className="mt-8 grid gap-4 md:grid-cols-2">
+          <div className="mt-10 grid gap-5 md:grid-cols-2">
             <ProjectImage
               src="/projects/jobfinder/sonarqube-prev.png"
               alt="SonarQube 코드 품질 개선 전"
@@ -853,7 +856,7 @@ export function JobFinderCaseStudy() {
             />
           </div>
 
-          <div className="mt-8 flex flex-col gap-4 rounded-lg border border-border bg-surface p-5 shadow-sm sm:flex-row sm:items-center sm:justify-between sm:p-6">
+          <div className="mt-10 flex flex-col gap-5 rounded-lg border border-border bg-surface p-5 shadow-sm sm:flex-row sm:items-center sm:justify-between sm:p-6">
             <div>
               <p className="text-xs font-semibold uppercase tracking-wide text-muted">
                 Code Smell
@@ -869,18 +872,6 @@ export function JobFinderCaseStudy() {
               <li>팀원 간 코드 리뷰 이해도 향상</li>
             </ul>
           </div>
-        </PageSection>
-
-        <PageSection
-          id="roles"
-          title="담당 역할"
-          subtitle="팀 본편과 개인 확장을 통틀어 수행한 작업입니다."
-        >
-          <ul className="max-w-4xl list-inside list-disc space-y-2 text-sm leading-relaxed text-muted md:text-base">
-            {ROLE_ITEMS.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
         </PageSection>
 
         <PageSection id="closing" title="마무리">

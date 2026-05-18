@@ -1,4 +1,4 @@
-export type SkillCategory = "frontend" | "backend" | "tooling" | "collaboration";
+export type SkillCategory = "frontend" | "backend" | "tooling";
 
 export type Skill = {
   name: string;
@@ -11,19 +11,15 @@ export const skillCategories: Record<
 > = {
   frontend: {
     label: "Frontend",
-    description: "웹 UI, React·Next.js, 포트폴리오 사이트 제작",
+    description: "포트폴리오 UI와 JSP 기반 화면 구현 경험",
   },
   backend: {
     label: "Backend",
-    description: "Java·Spring 기반 API, DB, 인증·실시간 통신",
+    description: "Spring Boot 기반 API, 인증, DB 연동, 실시간 통신 구현",
   },
   tooling: {
     label: "Tooling",
-    description: "Git, CI/CD, 컨테이너·클라우드 배포, 코드 품질",
-  },
-  collaboration: {
-    label: "Collaboration",
-    description: "AI 도구 활용 협업·문서화·워크플로",
+    description: "Docker·Jenkins·AWS EC2 기반 배포와 품질 점검 경험",
   },
 };
 
@@ -51,9 +47,6 @@ export const skills: readonly Skill[] = [
   { name: "GitHub", category: "tooling" },
   { name: "Vercel", category: "tooling" },
   { name: "SonarQube", category: "tooling" },
-  { name: "MCP", category: "collaboration" },
-  { name: "ChatGPT", category: "collaboration" },
-  { name: "Cursor", category: "collaboration" },
 ] as const;
 
 export function getSkillsByCategory(

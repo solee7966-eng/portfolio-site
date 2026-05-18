@@ -22,7 +22,7 @@ export const siteConfig: SiteConfig = {
   name: "안태훈",
   title: "안태훈 | 신입 웹 개발자 포트폴리오",
   description:
-    "신입 웹 개발자 안태훈의 포트폴리오입니다. JobFinder에서 Spring Boot·Oracle·MyBatis 기반 기업 기능, 결제, 스케줄러, WebSocket 채팅 확장과 Docker·Jenkins·AWS EC2 배포를 경험했으며, 이 사이트는 Next.js로 제작하고 ChatGPT·Cursor 기반 MCP 협업 과정을 정리했습니다.",
+    "신입 웹 개발자 안태훈의 포트폴리오입니다. JobFinder에서 Spring Boot·Oracle·MyBatis 기반 기업 기능, 결제, 스케줄러, WebSocket 채팅 확장과 Docker·Jenkins·AWS EC2 배포를 경험했으며, 프로젝트 경험을 구조와 문제 해결 흐름 중심으로 정리했습니다.",
   url: "https://taehoon-portfolio.vercel.app",
   nav: [
     { href: "/", label: "Home" },

@@ -21,9 +21,9 @@ export function ProjectImage({
 }: ProjectImageProps) {
   const aspectClass =
     aspectRatio === "wide"
-      ? "aspect-[16/7]"
+      ? "aspect-video sm:aspect-[16/7]"
       : aspectRatio === "auto"
-        ? "min-h-[240px]"
+        ? "min-h-[220px] sm:min-h-[280px]"
         : "aspect-video";
 
   return (
@@ -37,12 +37,12 @@ export function ProjectImage({
           fill
           priority={priority}
           sizes="(min-width: 1024px) 1200px, 100vw"
-          className={`object-contain p-1 ${imageClassName}`}
+          className={`object-contain p-2 sm:p-3 ${imageClassName}`}
         />
       </div>
 
       {caption ? (
-        <figcaption className="text-center text-sm text-muted-foreground">
+        <figcaption className="text-center text-xs leading-relaxed text-muted-foreground sm:text-sm">
           {caption}
         </figcaption>
       ) : null}

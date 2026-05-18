@@ -1,6 +1,3 @@
-import { existsSync } from "node:fs";
-import { join } from "node:path";
-
 import Link from "next/link";
 
 import { DetailAccordionItem } from "@/components/ui/DetailAccordionItem";
@@ -14,9 +11,6 @@ import { TroubleshootBlock } from "@/components/ui/TroubleshootBlock";
 
 const GITHUB_URL = "https://github.com/solee7966-eng/DeviceMarket";
 const SHOPPING_DB_IMAGE = "/projects/shopping-mall/shopping-db.png";
-const hasShoppingDbImage = existsSync(
-  join(process.cwd(), "public", "projects", "shopping-mall", "shopping-db.png"),
-);
 
 const HERO_TAGS = [
   "Java",
@@ -64,6 +58,12 @@ const FEATURE_CARDS: readonly { title: string; description: string }[] = [
   },
 ];
 
+const CORE_ROLE_ITEMS = [
+  "상품 등록과 옵션 추가 흐름 설계",
+  "상품·이미지·옵션 분리 저장 구조 구현",
+  "동일 옵션 재고 증가 로직 구현",
+] as const;
+
 const LEARNINGS = [
   "JSP/Servlet MVC2 구조와 FrontController 패턴 이해",
   "DAO/DTO 기반 데이터 처리 흐름 학습",
@@ -75,7 +75,7 @@ const LEARNINGS = [
 export function ShoppingMallCaseStudy() {
   return (
     <div>
-      <header className="border-b border-border pb-10 sm:pb-12">
+      <header className="border-b border-border pb-12 sm:pb-14">
         <p className="text-sm font-medium uppercase tracking-widest text-accent">
           JSP/Servlet 기반 휴대폰 쇼핑몰 서비스
         </p>
@@ -87,12 +87,22 @@ export function ShoppingMallCaseStudy() {
           상품·옵션·이미지를 분리한 데이터 구조를 기반으로 옵션별 가격과 재고를
           관리했습니다.
         </p>
-        <div className="mt-6 flex flex-wrap gap-2">
+        <div className="mt-6 flex flex-wrap gap-2.5">
           {HERO_TAGS.map((tag) => (
             <TechBadge key={tag} label={tag} />
           ))}
         </div>
         <MetaInfoGrid rows={META_ROWS} />
+        <div className="mt-7 grid gap-4 sm:grid-cols-3">
+          {CORE_ROLE_ITEMS.map((item) => (
+            <div
+              key={item}
+              className="rounded-lg border border-accent/15 bg-accent/4 p-4 text-sm font-medium leading-relaxed text-foreground/90 shadow-sm sm:p-5"
+            >
+              {item}
+            </div>
+          ))}
+        </div>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           <Link
             href={GITHUB_URL}
@@ -133,7 +143,7 @@ export function ShoppingMallCaseStudy() {
             <p className="mt-1 text-sm text-muted">
               JSP/Servlet 기반 MVC2 구조로 구성했습니다.
             </p>
-            <div className="mt-6 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-7 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
               <TechStackBlock
                 heading="Frontend"
                 items={["JSP", "HTML5", "CSS3", "JavaScript"]}
@@ -180,26 +190,14 @@ export function ShoppingMallCaseStudy() {
           title="DB 설계"
           subtitle="상품·옵션·이미지를 분리해 옵션 단위 장바구니/주문 흐름까지 이어지도록 설계했습니다."
         >
-          {hasShoppingDbImage ? (
-            <ProjectImage
-              src={SHOPPING_DB_IMAGE}
-              alt="DeviceMarket 쇼핑몰 ERD"
-              caption="상품·옵션·이미지·장바구니·주문 흐름을 분리한 ERD"
-              aspectRatio="wide"
-              className="mb-8"
-            />
-          ) : (
-            <div className="mb-8 rounded-lg border border-dashed border-border bg-surface-muted px-4 py-8 text-center shadow-sm">
-              <p className="text-sm font-medium text-foreground">
-                ERD 이미지 준비 중
-              </p>
-              <p className="mt-2 text-sm text-muted">
-                추후 <code className="font-mono">{SHOPPING_DB_IMAGE}</code> 경로에
-                이미지를 추가하면 이 영역에 표시할 예정입니다.
-              </p>
-            </div>
-          )}
-          <div className="grid gap-4 sm:grid-cols-2">
+          <ProjectImage
+            src={SHOPPING_DB_IMAGE}
+            alt="DeviceMarket 쇼핑몰 ERD"
+            caption="상품·옵션·이미지·장바구니·주문 흐름을 분리한 ERD"
+            aspectRatio="wide"
+            className="mb-10"
+          />
+          <div className="grid gap-5 sm:grid-cols-2">
             <FeatureCard
               title="PRODUCT"
               description="상품명, 브랜드, 대표 이미지, 기본 가격 등 공통 상품 정보를 저장합니다."
@@ -224,7 +222,7 @@ export function ShoppingMallCaseStudy() {
           title="주요 담당 기능"
           subtitle="상품 옵션 관리 시스템을 중심으로 담당 범위를 정리했습니다."
         >
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid gap-5 sm:grid-cols-2">
             {FEATURE_CARDS.map((feature) => (
               <FeatureCard
                 key={feature.title}
@@ -240,7 +238,7 @@ export function ShoppingMallCaseStudy() {
           title="구현 구조"
           subtitle="MVC2, FrontController, DAO/DTO를 기준으로 역할을 분리했습니다."
         >
-          <div className="space-y-3">
+          <div className="space-y-4">
             <DetailAccordionItem title="FrontController와 Command 매핑">
               <p>
                 서버 구동 시 properties 파일을 읽어 URL과 Command 객체의 매핑을
@@ -268,7 +266,7 @@ export function ShoppingMallCaseStudy() {
           title="트러블슈팅"
           subtitle="상품 옵션 관리와 관리자 등록 흐름에서 겪은 대표 이슈입니다."
         >
-          <div className="space-y-8">
+          <div className="space-y-9">
             <TroubleshootBlock
               title="옵션 조회 정렬 문제"
               problem="용량 값이 문자열로 저장되어 일반 ORDER BY 사용 시 1TB, 256GB, 512GB 순서가 의도와 다르게 노출되었습니다."
@@ -291,7 +289,7 @@ export function ShoppingMallCaseStudy() {
           title="배운 점"
           subtitle="첫 MVC2 기반 팀 프로젝트에서 설계와 비즈니스 로직 중심으로 얻은 경험입니다."
         >
-          <ul className="max-w-2xl list-inside list-disc space-y-2 text-sm leading-relaxed text-muted md:text-base">
+          <ul className="max-w-2xl list-inside list-disc space-y-2.5 text-sm leading-relaxed text-muted md:text-base">
             {LEARNINGS.map((learning) => (
               <li key={learning}>{learning}</li>
             ))}
