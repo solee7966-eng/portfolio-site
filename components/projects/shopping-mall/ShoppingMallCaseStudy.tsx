@@ -108,7 +108,7 @@ export function ShoppingMallCaseStudy() {
             href={GITHUB_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center rounded-md bg-accent px-4 py-2.5 text-sm font-medium text-accent-foreground transition-colors hover:bg-accent-hover"
+            className="inline-flex items-center justify-center rounded-md bg-accent px-4 py-2.5 text-sm font-medium text-accent-foreground transition-colors duration-300 ease-out hover:bg-accent-hover"
           >
             GitHub 보기
           </Link>

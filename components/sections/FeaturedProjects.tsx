@@ -18,7 +18,7 @@ export function FeaturedProjects() {
           />
           <Link
             href="/projects"
-            className="shrink-0 text-sm font-medium text-accent hover:text-accent-hover"
+            className="shrink-0 text-sm font-medium text-accent transition-colors duration-300 ease-out hover:text-accent-hover"
           >
             전체 프로젝트 보기 →
           </Link>

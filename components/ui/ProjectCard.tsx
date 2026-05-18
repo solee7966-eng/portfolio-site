@@ -11,15 +11,15 @@ type ProjectCardProps = {
 
 export function ProjectCard({ project }: ProjectCardProps) {
   return (
-    <article className="group flex flex-col overflow-hidden rounded-xl border border-border bg-surface shadow-sm transition-[border-color,box-shadow] hover:border-accent/30 hover:shadow-md">
+    <article className="group flex flex-col overflow-hidden rounded-xl border border-border bg-surface shadow-sm transition-[transform,box-shadow,border-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:border-accent/40 hover:shadow-md">
       {project.thumbnail ? (
-        <div className="relative aspect-video w-full border-b border-border bg-surface-muted">
+        <div className="relative aspect-video w-full overflow-hidden border-b border-border bg-surface-muted">
           <Image
             src={project.thumbnail}
             alt={project.thumbnailAlt ?? project.title}
             fill
             sizes="(min-width: 768px) 50vw, 100vw"
-            className="object-cover object-top"
+            className="object-cover object-top transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.025]"
           />
         </div>
       ) : null}
@@ -49,12 +49,12 @@ export function ProjectCard({ project }: ProjectCardProps) {
         </div>
         <Link
           href={project.href}
-          className="mt-auto inline-flex text-sm font-medium text-accent transition-colors hover:text-accent-hover"
+          className="mt-auto inline-flex text-sm font-medium text-accent transition-colors duration-300 ease-out hover:text-accent-hover"
         >
           자세히 보기
           <span
             aria-hidden
-            className="ml-1 transition-transform group-hover:translate-x-0.5"
+            className="ml-1 transition-transform duration-300 ease-out group-hover:translate-x-0.5"
           >
             →
           </span>

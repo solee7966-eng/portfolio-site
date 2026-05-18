@@ -73,9 +73,10 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: defaultTitle,
     description,
+    images: ["/og-image.png"],
   },
   robots: {
     index: true,

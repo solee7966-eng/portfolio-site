@@ -201,7 +201,7 @@ export function JobFinderCaseStudy() {
             href="http://52.78.3.125/user-service/index"
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center justify-center rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-accent-foreground transition hover:opacity-90"
+            className="inline-flex items-center justify-center rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-accent-foreground transition-opacity duration-300 ease-out hover:opacity-90"
           >
             서비스 바로가기
           </Link>
@@ -209,7 +209,7 @@ export function JobFinderCaseStudy() {
             href="https://github.com/stars/solee7966-eng/lists/jobfinder-%EC%B1%84%EC%9A%A9%EA%B3%B5%EA%B3%A0-%ED%94%8C%EB%9E%AB%ED%8F%BC"
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center justify-center rounded-full border border-border bg-surface px-5 py-2.5 text-sm font-semibold text-foreground transition hover:bg-muted/10"
+            className="inline-flex items-center justify-center rounded-full border border-border bg-surface px-5 py-2.5 text-sm font-semibold text-foreground transition-colors duration-300 ease-out hover:bg-muted/10"
           >
             GitHub 보기
           </Link>

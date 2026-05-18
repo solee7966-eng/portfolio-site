@@ -14,7 +14,7 @@ export function Footer() {
         <div className="flex flex-wrap gap-4 text-sm font-medium">
           <Link
             href={siteConfig.links.github}
-            className="text-muted transition-colors hover:text-accent"
+            className="inline-flex text-muted transition-[color,transform] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-px hover:text-accent"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -22,7 +22,7 @@ export function Footer() {
           </Link>
           <Link
             href={siteConfig.links.email}
-            className="text-muted transition-colors hover:text-accent"
+            className="inline-flex text-muted transition-[color,transform] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-px hover:text-accent"
           >
             Email
           </Link>

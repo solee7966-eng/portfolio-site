@@ -11,9 +11,12 @@ export const metadata: Metadata = {
 
 export default function JobFinderProjectPage() {
   return (
-    <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 md:py-16">
+    <div className="animate-page-enter mx-auto max-w-4xl px-4 py-12 sm:px-6 md:py-16">
       <p className="text-sm text-muted">
-        <Link href="/projects" className="hover:text-accent">
+        <Link
+          href="/projects"
+          className="transition-colors duration-300 ease-out hover:text-accent"
+        >
           Projects
         </Link>
         <span className="mx-2 text-border">/</span>

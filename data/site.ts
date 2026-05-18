@@ -29,7 +29,6 @@ export const siteConfig: SiteConfig = {
     { href: "/projects", label: "Projects" },
     { href: "/process", label: "Process" },
     { href: "/about", label: "About" },
-    { href: "/contact", label: "Contact" },
   ],
   links: {
     github: "https://github.com/solee7966-eng",
